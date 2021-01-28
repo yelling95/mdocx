@@ -1,0 +1,11 @@
+.ql-disabled {
+  border: none !important;
+}
+
+.ql-disabled > .ql-editor {
+  min-height: auto !important;
+}
+
+.ql-editor {
+  min-height: 457px;
+}

@@ -6,7 +6,7 @@ import RandomString from 'crypto-random-string'
 import Dropzone from 'react-dropzone'
 import Contents from './Contents'
 
-export default function Uploader (props) {
+export default function Uploader () {
   const [contents, setContents] = useState(null)
 
   const handleFile = async (file, name) => {
@@ -31,7 +31,8 @@ export default function Uploader (props) {
       
       if (res.status === 200) {
         setContents(res.data)
-        axios.get('/api/clear?serial=' + serial)
+        const clear = await axios.get('/api/clear?serial=' + serial)
+        console.log(clear)
       } else {
         alert('오류가 발생했습니다.')
       }

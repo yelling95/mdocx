@@ -3,8 +3,6 @@ import styles from '../styles/Home.module.css'
 import Uploader from '../src/components/Uploader'
 
 export default function Home() {
-  
-
   return (
     <div className={styles.container}>
       <Head>
@@ -17,4 +15,12 @@ export default function Home() {
       </main>
     </div>
   )
+}
+
+export function getStaticProps ({ params }) {
+  return {
+    props: {
+      
+    }
+  }
 }

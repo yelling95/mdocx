@@ -1,21 +1,26 @@
-import React, { useEffect } from 'react'
-
+import React, { useEffect, useState } from 'react'
+import QuillEditor from '../components/QuillEditor'
 interface Props {
   contents: string
 }
 
 export default function Contents (props: Props) {
   const { contents } = props
+  const [html, setHtml] = useState('')
+
+  useEffect(() => {
+    if (contents) {
+      setHtml(contents)
+    }
+  }, [contents])
 
   return (
-    contents !== null ? (
-      <div
-        dangerouslySetInnerHTML={
-          {
-            __html: contents
-          }
-        }
-      />
-    ) : <div></div>
+    <QuillEditor
+      value={html}
+      viewMode="editor"
+      onChange={value => {
+        console.log(value)
+      }}
+    />
   )
 }

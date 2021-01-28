@@ -21,7 +21,9 @@ const upload = multer({
       const serial = req.query.serial
       if (serial) {
         const path = 'temp/' + serial
-        fs.mkdirSync(path, { recursive: true })
+        if (fs.existsSync(path) === false) {
+          fs.mkdirSync(path, { recursive: true })
+        }
         cb(null, path)
       }
     },
@@ -48,7 +50,6 @@ handler.post(async (req, res) => {
     const path = 'temp/' + serial
     if (serial) {
       const files = fs.readdirSync(path)
-      const args = '-f markdown -t html -s -o merge.html'
 
       await Promise.all(
         files.map(name => {
@@ -66,9 +67,10 @@ handler.post(async (req, res) => {
             .use(remark2rehype)
             .use(doc, { title: String(serial) })
             .use(html)
-            .processSync(mdText) 
+            .processSync(mdText)
+            .toString()
 
-      res.status(200).end(result.toString())
+      res.status(200).end(result)
     } else {
       res.status(400).json({ result: false, message: 'Sorry!' })
     }
