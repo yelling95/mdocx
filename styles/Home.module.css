@@ -1,0 +1,10 @@
+.container {
+	width: 100%;
+	padding: 24px;
+	text-align: center;
+}
+
+.container h1 {
+	font-size: 50px;
+	font-weight: 500;
+}

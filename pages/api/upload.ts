@@ -49,28 +49,32 @@ handler.post(async (req, res) => {
     const serial = req.query.serial
     const path = 'temp/' + serial
     if (serial) {
-      const files = fs.readdirSync(path)
+      if (fs.existsSync(path) === true) {
+        const files = fs.readdirSync(path)
 
-      await Promise.all(
-        files.map(name => {
-          let data = fs.readFileSync(path + '/' + name)
-          fs.appendFileSync(path + '/merge.md', data)
-          fs.appendFileSync(path + '/merge.md', '\n')
-        })
-      )
+        await Promise.all(
+          files.map(name => {
+            let data = fs.readFileSync(path + '/' + name)
+            fs.appendFileSync(path + '/merge.md', data)
+            fs.appendFileSync(path + '/merge.md', '\n')
+          })
+        )
 
-      const merged = fs.readFileSync(path + '/merge.md')
-      const mdText = merged.toString()
+        const merged = fs.readFileSync(path + '/merge.md')
+        const mdText = merged.toString()
 
-      const result = unified()
-            .use(markdown)
-            .use(remark2rehype)
-            .use(doc, { title: String(serial) })
-            .use(html)
-            .processSync(mdText)
-            .toString()
+        const result = unified()
+              .use(markdown)
+              .use(remark2rehype)
+              .use(doc, { title: '' })
+              .use(html)
+              .processSync(mdText)
+              .toString()
 
-      res.status(200).end(result)
+        res.status(200).end(result)
+      } else {
+        res.status(400).json({ result: false, message: 'Sorry!' })
+      }
     } else {
       res.status(400).json({ result: false, message: 'Sorry!' })
     }

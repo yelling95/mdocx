@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useState } from 'react'
+import { Map } from 'immutable'
 import 'react-quill/dist/quill.snow.css'
 
 const TOOLBAR_OPTIONS = [
@@ -17,9 +18,8 @@ const TOOLBAR_OPTIONS = [
 ]
 
 interface Props {
-  value: string,
+  data?: any,
   height?: string,
-  viewMode?: string,
   onChange(value: string): void
 }
 
@@ -39,40 +39,19 @@ export default function QuillEditor (props: Props) {
   const Quill = require('react-quill')
 
   return (
-    <>
-      {props.viewMode !== 'editor' ? (
-        <Quill
-          readOnly={true}
-          modules={{
-            toolbar: null
-          }}
-          style={{
-            margin: -16
-          }}
-          value={props.value}
-        />
-      ) : (
-        <div
-          id='quill-scroll'
-          style={{
-            minHeight: 500,
-            overflowY: 'auto'
-          }}
-        >
-          <Quill
-            scrollingContainer='quill-scroll'
-            modules={{
-              toolbar: TOOLBAR_OPTIONS
-            }}
-            style={{
-              height: 'auto',
-              minHeight: '100%'
-            }}
-            value={props.value}
-            onChange={props.onChange}
-          />
-        </div>
-      )}
-    </>
+    <Quill
+      modules={{
+        toolbar: TOOLBAR_OPTIONS
+      }}
+      style={{
+        height: 'auto',
+        minHeight: '100%'
+      }}
+      value={(() => {
+        if (props.data === null || props.data === undefined) return ''
+        return props.data.get('html')
+      })()}
+      onChange={props.onChange}
+    />
   )
 }

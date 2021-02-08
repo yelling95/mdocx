@@ -1,11 +1,45 @@
 .ql-disabled {
-  border: none !important;
+	border: none !important;
 }
 
 .ql-disabled > .ql-editor {
-  min-height: auto !important;
+	min-height: auto !important;
 }
 
 .ql-editor {
-  min-height: 457px;
+	min-height: 457px;
+}
+
+.ql-toolbar.ql-snow {
+	text-align: left;
+	border: 0 !important;
+}
+
+.ql-toolbar.ql-snow .ql-formats {
+	margin-right: 0 !important;
+}
+
+.ql-toolbar.ql-snow * {
+	font-family: eb-garamond, serif;
+	font-weight: 400;
+	font-style: normal;
+	color: #b3c43e;
+}
+
+.ql-container {
+	font-weight: inherit;
+	font-style: inherit;
+}
+
+.ql-container.ql-snow {
+	border: 0 !important;
+}
+
+.ql-snow .ql-stroke {
+	stroke: #b3c43e !important;
+}
+
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+	fill: #b3c43e !important;
 }

@@ -8,9 +8,10 @@ export default function Home() {
       <Head>
         <title>{`MD => DOCX`}</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://use.typekit.net/lnz6eqk.css"></link>
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.title}>{`MD => DOCX`}</h1>
+        <h1 className={styles.title}>{`MD to DOCX`}</h1>
         <Uploader/>
       </main>
     </div>

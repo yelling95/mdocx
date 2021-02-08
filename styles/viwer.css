@@ -1,0 +1,14 @@
+#html-viwer * {
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	font-style: inherit;
+	color: inherit;
+	text-align: left;
+}
+
+#html-viwer h1 {
+	font-size: 2em;
+	margin-block-start: 0px;
+	margin-block-end: 0px;
+}

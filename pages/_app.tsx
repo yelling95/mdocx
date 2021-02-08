@@ -1,9 +1,9 @@
-import { AppProps } from 'next/app'
 import '../styles/globals.css'
 import '../styles/editor.css'
+import '../styles/viwer.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+export default function App({ Component, pageProps }) {
+  return (
+    <Component {...pageProps} />
+  )
 }
-
-export default MyApp

@@ -1,16 +1,91 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	padding: 0;
+	margin: 0;
+	font-family: eb-garamond, serif;
+	font-weight: 400;
+	font-style: normal;
+	color: #b3c43e;
+	background: #1d1314;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.dropzone {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100px;
+	background: #251609;
+	border: 3px dashed #eeeed2;
+	cursor: pointer;
+}
+
+.dropzone:focus,
+.dropzone:active {
+	outline: 0;
+	border: 3px dashed #b3c43e;
+	-moz-outline-style: none;
+}
+
+.dropzone.active {
+	color: white;
+	background: -webkit-repeating-radial-gradient(
+		center,
+		40px 40px,
+		#1d1314,
+		#4f5a07 50%,
+		#b3c43e
+	);
+	background: -moz-repeating-radial-gradient(
+		center,
+		40px 40px,
+		#1d1314,
+		#4f5a07 50%,
+		#b3c43e
+	);
+	background: -ms-repeating-radial-gradient(
+		center,
+		40px 40px,
+		#1d1314,
+		#4f5a07 50%,
+		#b3c43e
+	);
+	background: -o-repeating-radial-gradient(
+		center,
+		40px 40px,
+		#1d1314,
+		#4f5a07 50%,
+		#b3c43e
+	);
+	background: repeating-radial-gradient(
+		40px circle,
+		#1d1314,
+		#4f5a07 50%,
+		#b3c43e
+	);
+}
+
+.flex {
+	display: flex;
+}
+
+.flex > div:first-child {
+	width: 40%;
+}
+
+.flex > div {
+	width: 60%;
+}
+
+.flex > div {
+	height: auto;
+	min-height: 100%;
 }
