@@ -26,13 +26,14 @@ a {
 	background: #251609;
 	border: 3px dashed #eeeed2;
 	cursor: pointer;
+  margin: 50px 0;
 }
 
 .dropzone:focus,
 .dropzone:active {
 	outline: 0;
-	border: 3px dashed #b3c43e;
-	-moz-outline-style: none;
+  -moz-outline-style: none;
+	border: 3px solid #b3c43e;
 }
 
 .dropzone.active {
@@ -88,4 +89,39 @@ a {
 .flex > div {
 	height: auto;
 	min-height: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.buttons button {
+  height: 36px;
+  border-radius: 0;
+  border: 0;
+  font-family: eb-garamond, serif;
+  font-weight: 500;
+  flex-grow: 1;
+  margin-right: 20px;
+  background-color: #ddff02;
+  color: #535f01;
+}
+
+.buttons button:disabled {
+  background-color: #251609 !important;
+  color: #535f01 !important;
+}
+
+.buttons button:last-child {
+  margin-right: 0;
+}
+
+.buttons button:focus,
+.buttons button:active {
+  outline: 0;
+  -moz-outline-style: none;
+  border: 3px dashed #251609;
 }

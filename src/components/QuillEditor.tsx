@@ -23,7 +23,7 @@ interface Props {
   onChange(value: string): void
 }
 
-export default function QuillEditor (props: Props) {
+export default function QuillEditor(props: Props) {
   const [isReady, setReady] = useState(false)
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function QuillEditor (props: Props) {
       }}
       value={(() => {
         if (props.data === null || props.data === undefined) return ''
-        return props.data.get('html')
+        return props.data.get('contents')
       })()}
       onChange={props.onChange}
     />

@@ -47,29 +47,21 @@ handler.use(upload.array('attachment'))
 handler.post(async (req, res) => {
   try {
     const serial = req.query.serial
+    const seq = req.query.seq
     const path = 'temp/' + serial
-    if (serial) {
+
+    if (serial && seq) {
       if (fs.existsSync(path) === true) {
-        const files = fs.readdirSync(path)
-
-        await Promise.all(
-          files.map(name => {
-            let data = fs.readFileSync(path + '/' + name)
-            fs.appendFileSync(path + '/merge.md', data)
-            fs.appendFileSync(path + '/merge.md', '\n')
-          })
-        )
-
-        const merged = fs.readFileSync(path + '/merge.md')
-        const mdText = merged.toString()
+        let data = fs.readFileSync(path + '/' + seq + '.md')
+        let text = data.toString()
 
         const result = unified()
-              .use(markdown)
-              .use(remark2rehype)
-              .use(doc, { title: '' })
-              .use(html)
-              .processSync(mdText)
-              .toString()
+          .use(markdown)
+          .use(remark2rehype)
+          .use(doc, { title: '' })
+          .use(html)
+          .processSync(text)
+          .toString()
 
         res.status(200).end(result)
       } else {
