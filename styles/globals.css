@@ -26,13 +26,13 @@ a {
 	background: #251609;
 	border: 3px dashed #eeeed2;
 	cursor: pointer;
-  margin: 50px 0;
+	margin: 50px 0;
 }
 
 .dropzone:focus,
 .dropzone:active {
 	outline: 0;
-  -moz-outline-style: none;
+	-moz-outline-style: none;
 	border: 3px solid #b3c43e;
 }
 
@@ -78,50 +78,85 @@ a {
 	display: flex;
 }
 
-.flex > div:first-child {
-	width: 40%;
-}
-
 .flex > div {
-	width: 60%;
-}
-
-.flex > div {
+	width: 100%;
 	height: auto;
 	min-height: 100%;
+	padding: 10px;
+}
+
+.flex > div.sp_wrap,
+.flex > div.ps_wrap {
+	text-align: left;
+}
+
+.flex > div > div > div {
+	height: 34px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.flex > div.ps_wrap b {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.flex > div input {
+	width: 100%;
+	height: 24px;
+	background-color: #251609;
+	border: none;
+	color: #eeeed2;
+}
+
+.flex > div *:focus,
+.flex > div *:active {
+	outline: 0;
+	-moz-outline-style: none;
+}
+
+.flex > div button {
+	width: 50px;
+	height: 24px;
+	margin-left: 10px;
+	border-radius: 0;
+	border: none;
+	color: #eeeed2;
+	background-color: #4f5a07;
+	cursor: pointer;
 }
 
 .buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
 }
 
 .buttons button {
-  height: 36px;
-  border-radius: 0;
-  border: 0;
-  font-family: eb-garamond, serif;
-  font-weight: 500;
-  flex-grow: 1;
-  margin-right: 20px;
-  background-color: #ddff02;
-  color: #535f01;
+	height: 36px;
+	border-radius: 0;
+	border: 0;
+	font-family: eb-garamond, serif;
+	font-weight: 500;
+	flex-grow: 1;
+	margin-right: 20px;
+	background-color: #ddff02;
+	color: #535f01;
 }
 
 .buttons button:disabled {
-  background-color: #251609 !important;
-  color: #535f01 !important;
+	background-color: #251609 !important;
+	color: #535f01 !important;
 }
 
 .buttons button:last-child {
-  margin-right: 0;
+	margin-right: 0;
 }
 
 .buttons button:focus,
 .buttons button:active {
-  outline: 0;
-  -moz-outline-style: none;
-  border: 3px dashed #251609;
+	outline: 0;
+	-moz-outline-style: none;
+	border: 3px dashed #251609;
 }

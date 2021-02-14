@@ -5,7 +5,6 @@ import axios from 'axios'
 import CryptoJS from 'crypto-js'
 import RandomString from 'crypto-random-string'
 import Dropzone from 'react-dropzone'
-import QuillEditor from './QuillEditor'
 import { List, Map } from 'immutable'
 import { asBlob } from 'html-docx-js-typescript'
 import { saveAs } from 'file-saver'
@@ -16,6 +15,10 @@ export default function Uploader() {
   const [html, setHtml] = useState(Map({ contents: '' }))
   const [lock, setLock] = useState(-1)
   const [percent, setPercent] = useState(null)
+  const [spliter, setSpliter] = useState(List(['Endpoint', 'Method', '관련 화면', '구분', '담당자', '서버', '진행 상태', '프로그램 ID']))
+  const [persons, setPersons] = useState(List([
+    { before: 'Belle', after: '이지원' }
+  ]))
 
   const getRenameFile = async (file: File, name: string) => {
     return new File([file], name, {
@@ -98,13 +101,6 @@ export default function Uploader() {
 
   const handleClear = () => {
     const viewers = document.getElementsByClassName('html-viwer')
-    const spliter = ['Endpoint', 'Method', '관련 화면', '구분', '담당자', '서버', '진행 상태', '프로그램 ID']
-    const persons = [
-      {
-        before: 'Belle',
-        after: '이지원'
-      }
-    ]
 
     let contents = ''
 
@@ -120,13 +116,13 @@ export default function Uploader() {
             const text = sibling.childNodes.length > 0 ? sibling.childNodes[0].textContent : ''
             let replaced = ''
 
-            for (let p = 0; p < persons.length; p++) {
-              let before = persons[p].before
-              let after = persons[p].after
+            for (let p = 0; p < persons.size; p++) {
+              let before = persons.get(p).before
+              let after = persons.get(p).after
               replaced = text.replace(before, after)
             }
 
-            const indexs = spliter.map(sp => replaced.indexOf(sp + ': '))
+            const indexs = spliter.map(sp => replaced.indexOf(sp + ': ')).toJS()
             let _index = 0
             let splited = []
 
@@ -149,10 +145,44 @@ export default function Uploader() {
         }
       }
 
-      setHtml(Map({ contents }))
+      setHtml(html.update('contents', () => contents))
       setLock(3)
-    } catch (e) {
-      console.log(e)
+    } catch (e) {}
+  }
+
+  const handleCondition = (type: string = 's', action: string = 'a', index: number = -1) => {
+    switch (action) {
+      case 'a':
+        if (type === 's') {
+          setSpliter(spliter.push(''))
+        } else {
+          setPersons(persons.push({
+            before: '',
+            after: ''
+          }))
+        }
+        break
+      case 'r':
+        if (index > -1) {
+          if (type === 's') {
+            setSpliter(spliter.remove(index))
+          } else {
+            setPersons(persons.remove(index))
+          }
+        }
+        break
+      default: 
+        break
+    }
+  }
+
+  const handleChange = (type: string, index: number = -1, value: string) => {
+    if (type === 's') {
+      setSpliter(spliter.update(index, () => value))
+    } else if (type === 'pb') {
+      setPersons(persons.updateIn([index, 'before'], () => value))
+    } else {
+      setPersons(persons.updateIn([index, 'after'], () => value))
     }
   }
 
@@ -197,7 +227,35 @@ export default function Uploader() {
           >Step3</button>
         </div>
       )}
-      <div className="flex">
+      {lock === 2 && (
+        <div className="flex">
+          <div className="sp_wrap">
+            <p>1. 구분 키워드 <button onClick={() => handleCondition('s', 'a')}>+</button></p>
+            <div>
+              {spliter.map((sp, s_index) => (
+                <div key={`spliter-${s_index}`}>
+                  <input value={sp} onChange={e => handleChange('s', s_index, e.target.value)} />
+                  <button onClick={() => handleCondition('s', 'r', s_index)}>-</button>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="ps_wrap">
+            <p>2. 담당자 변환 <button onClick={() => handleCondition('p', 'a')}>+</button></p>
+            <div>
+              {persons.map((ps, p_index) => (
+                <div key={`person-${p_index}`}>
+                  <input value={ps.before} onChange={e => handleChange('pb', p_index, e.target.value)}/>
+                  <b>{` > `}</b>
+                  <input value={ps.after} onChange={e => handleChange('pa', p_index, e.target.value)}/>
+                  <button onClick={() => handleCondition('p', 'r', p_index)}>-</button>
+                </div>    
+              ))}      
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="flex" id="html-viwer">
         <div>
           {data.map((content, index) => (
             <div
@@ -210,12 +268,6 @@ export default function Uploader() {
             </div>
           ))}
         </div>
-        <QuillEditor
-          data={html}
-          onChange={value => {
-
-          }}
-        />
       </div>
     </div>
   )
